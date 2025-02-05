@@ -1,6 +1,7 @@
 
 import multer from 'multer';
 import path, { extname, resolve } from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -18,7 +19,11 @@ export default {
   },
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, resolve(__dirname, '..', '..', 'uploads', 'images'));
+      const userDir = resolve(__dirname, '..', '..', 'uploads', 'images', `${req.userId}`)
+      if (!fs.existsSync(userDir)) {
+        fs.mkdirSync(userDir);
+      }
+      cb(null, userDir);
     },
     filename: (req, file, cb) => {
       cb(null, `${Date.now()}_${aleatorio()}${extname(file.originalname)}`);

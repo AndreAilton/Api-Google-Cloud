@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/server.js",
-    "build": "sucrase ./src --out-dir ./dist --transforms imports",
-    "start": "node ./dist/server.js"
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
